@@ -38,6 +38,6 @@ The page has a form input where you can search for any city. Once a city is type
 
 
 # Here is a link to the GitHub repository: https://github.com/lukinko22/5_day_weather_forecast/
-# Here is a link to the deployed page: https://lukinko22.github.io/5_day_weathher_forecast/ 
+# Here is a link to the deployed page: https://lukinko22.github.io/5_day_weather_forecast/ 
 
 
