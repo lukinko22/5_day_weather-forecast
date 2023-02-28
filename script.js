@@ -150,3 +150,121 @@ function getIndexDay5 (currentHour) {
         index = 39;
     } return index;
 }
+// calling API
+$("#search-button").on("click", function(event) {
+    event.preventDefault();
+
+    let city = $('#search-input').val();
+    buttonsCity(city);   
+
+    let queryGeoURL = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=5&appid=9fd6a1347f49828c432e8937391a3380";
+
+
+    $.ajax({
+        url: queryGeoURL,
+        method: "GET"
+    })
+    .then(function(response) {
+        let lat = response[0].lat;            
+        let lon = response[0].lon;
+
+        // API for current weather
+        let queryCurrentURL = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&units=metric&appid=9fd6a1347f49828c432e8937391a3380";
+
+        // API for 5 day forecasr
+        let queryWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&units=metric&appid=9fd6a1347f49828c432e8937391a3380";
+
+        
+        $.ajax({
+            url: queryCurrentURL,
+            method: "GET"
+        })
+        .then(function(response) {
+            
+            
+            $('#today').empty();
+            let currentDay = moment().format("DD/M/YYYY");
+            let currentTemp = response.main.temp;
+            let currentWind = response.wind.speed;
+            let currentHumidity = response.main.humidity;
+            
+            let currentWeather = $(`<div>
+                                        <h2>${city} (${currentDay})</h2>
+                                        <p>Temp: ${currentTemp} C</p>
+                                        <p>Wind: ${currentWind} KPH</p>
+                                        <p>Humidity: ${currentHumidity}</p>
+                                    </div>`);
+            $('#today').append(currentWeather);
+            
+            
+            $.ajax({
+                url: queryWeatherURL,
+                method: "GET"
+            })
+            .then(function(response) {
+
+                                
+                $('#forecast').empty();                
+                let currentHour = moment().format("H");
+                
+                 
+                let day1 = moment(response.list[1].dt_txt, "YYYY-MM-DD HH:mm:ss").format("DD/M/YYYY");
+                let i1 = getIndexDay1(currentHour);
+
+                let image1 = response.list[i1].weather[0].description;
+                let temp1 = response.list[i1].main.temp;
+                let wind1 = response.list[i1].wind.speed;
+                let humidity1 = response.list[i1].main.humidity;
+
+                forecastDiv(day1, image1, temp1, wind1, humidity1);
+                
+                
+                let day2 = moment(response.list[9].dt_txt, "YYYY-MM-DD HH:mm:ss").format("DD/M/YYYY");
+                let i2 = getIndexDay2(currentHour);
+
+                let image2 = response.list[i2].weather[0].description;
+                let temp2 = response.list[i2].main.temp;
+                let wind2 = response.list[i2].wind.speed;
+                let humidity2 = response.list[i2].main.humidity;
+
+                forecastDiv(day2, image2, temp2, wind2, humidity2);
+
+                
+                let day3 = moment(response.list[17].dt_txt, "YYYY-MM-DD HH:mm:ss").format("DD/M/YYYY");
+                let i3 = getIndexDay3(currentHour);
+
+                let image3 = response.list[i3].weather[0].description;
+                let temp3 = response.list[i3].main.temp;
+                let wind3 = response.list[i3].wind.speed;
+                let humidity3 = response.list[i3].main.humidity;
+
+                forecastDiv(day3, image3, temp3, wind3, humidity3);
+
+                
+                let day4 = moment(response.list[25].dt_txt, "YYYY-MM-DD HH:mm:ss").format("DD/M/YYYY");
+                let i4 = getIndexDay4(currentHour);
+
+                let image4 = response.list[i4].weather[0].description;
+                let temp4 = response.list[i4].main.temp;
+                let wind4 = response.list[i4].wind.speed;
+                let humidity4 = response.list[i4].main.humidity;
+
+                forecastDiv(day4, image4, temp4, wind4, humidity4);
+
+                
+                let day5 = moment(response.list[33].dt_txt, "YYYY-MM-DD HH:mm:ss").format("DD/M/YYYY");
+                let i5 = getIndexDay5(currentHour);
+
+                let image5 = response.list[i5].weather[0].description;
+                let temp5 = response.list[i5].main.temp;
+                let wind5 = response.list[i5].wind.speed;
+                let humidity5 = response.list[i5].main.humidity;
+
+                forecastDiv(day5, image5, temp5, wind5, humidity5);                
+            });
+        });
+    });
+});
+
+
+start();
