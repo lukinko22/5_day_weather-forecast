@@ -34,7 +34,9 @@ When a user clicks on a city in the search history they are again presented with
 
 The page has a form input where you can search for any city. Once a city is typed and the user clicks search, the current forecast is displayed at the top of the page, along with the 5 day forecast. The user city input is saved as a button, and when clicked, the forecast can be displayed on the dashboard again without the user re-typing the city. 
 
+# Here is the screenshot of the application:
 
+![5_day_weather_forecast](https://user-images.githubusercontent.com/117579547/221848516-648112ce-4ee7-4206-85a9-5431cfd08ac6.png)
 
 
 # Here is a link to the GitHub repository: https://github.com/lukinko22/5_day_weather_forecast/
