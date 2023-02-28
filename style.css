@@ -1,0 +1,11 @@
+#today {
+
+    border-color: rgb(75, 175, 122);
+    border-style: double;
+}
+
+div .col {
+    border-style:double;
+    border-color: rgb(75, 175, 122);
+    padding: auto;
+}
