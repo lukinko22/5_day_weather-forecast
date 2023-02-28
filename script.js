@@ -19,4 +19,29 @@ function createButtons (array) {
         $('#search-input').val('');
     });
 }
+// pulls city from local storage
+function start () {
+    cityName = JSON.parse(localStorage.getItem('cityName')) || [];
+    createButtons(cityName);
+}
 
+// if button is empty, a new city is pushed onto the button
+function buttonsCity (city) {
+    if (city != '' && cityName.includes(city) != true) {        
+        cityName.push(city); 
+        localStorage.setItem('cityName', JSON.stringify(cityName));
+        createButtons(cityName);
+    }
+}
+
+// Div created to hold the data of the forecast
+function forecastDiv (day, image, temp, wind, humidity) {
+    let weather = $(`<div class="col forecast-tiles">
+                        <h3>${day}</h3>
+                        <p>${image}</p>
+                        <p>Temp: ${temp} C</p>
+                        <p>Wind: ${wind} KPH</p>
+                        <p>Humidity: ${humidity}</p>
+                    </div>`);
+    $('#forecast').append(weather);
+}
